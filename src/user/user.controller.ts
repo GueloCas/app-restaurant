@@ -26,7 +26,7 @@ export class UserController {
 
     @Put('/:id')
     @HttpCode(200)
-    putUser(@Param('id') id: string, @Body() user: any[]) {
+    updateUser(@Param('id') id: string, @Body() user: any[]) {
         return this.userService.updateUser(id, user)
     }
 
