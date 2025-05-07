@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { TableModule } from './table/table.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
+import { MenuCategoryModule } from './menu-category/menu-category.module';
 
 @Module({
-  imports: [TableModule, RoleModule, UserModule],
+  imports: [TableModule, RoleModule, UserModule, MenuCategoryModule],
 })
 export class AppModule {}
