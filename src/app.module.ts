@@ -5,8 +5,9 @@ import { UserModule } from './user/user.module';
 import { MenuCategoryModule } from './menu-category/menu-category.module';
 import { MenuModule } from './menu/menu.module';
 import { AggregateModule } from './aggregate/aggregate.module';
+import { VariantModule } from './variant/variant.module';
 
 @Module({
-  imports: [TableModule, RoleModule, UserModule, MenuCategoryModule, MenuModule, AggregateModule],
+  imports: [TableModule, RoleModule, UserModule, MenuCategoryModule, MenuModule, AggregateModule, VariantModule],
 })
 export class AppModule {}
