@@ -36,4 +36,121 @@ model User {
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+model Table {
+  id String @id @default(cuid())
+  name String @unique
+  is_active Boolean @default(false)
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+model MenuCategory {
+  id String @id @default(cuid())
+  name String @unique
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  menus Menu[]
+}
+
+model Menu {
+  id String @id @default(cuid())
+  name String @unique
+  description String?
+  price Int
+  has_variants Boolean @default(false)
+  has_aggregate Boolean @default(false)
+  is_active Boolean @default(true)
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  menu_category_id String
+  menuCategory MenuCategory @relation(fields: [menu_category_id], references: [id])
+
+  variants Variant[]
+  orderMenuDetails OrderMenuDetail[]
+}
+
+model Aggregate {
+  id String @id @default(cuid())
+  name String @unique
+  price Int
+  is_active Boolean @default(true)
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  orderMenuDetails OrderMenuDetail[]
+}
+
+model Variant {
+  id String @id @default(cuid())
+  name String 
+  price Int
+  is_active Boolean @default(true)
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  menu_id String
+  menu Menu @relation(fields: [menu_id], references: [id])
+
+  orderMenuDetails OrderMenuDetail[]
+}
+
+model Order {
+  id String @id @default(cuid())
+  code Int @unique
+  total Int
+  tip Int
+  status Status @default(RECIBIDO)
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
+
+  table_id String
+  table Table @relation(fields: [table_id], references: [id])
+
+  orderMenuDetails OrderMenuDetail[]
+}
+
+model OrderMenuDetail {
+  id String @id @default(cuid())
+  detail String
+  additional String?
+  detail_price Int
+  quantity Int
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  order_id String
+  order Order @relation(fields: [order_id], references: [id])
+
+  menu_id String
+  menu Menu @relation(fields: [menu_id], references: [id])
+
+  aggregate_id String?
+  aggregate Aggregate? @relation(fields: [aggregate_id], references: [id])
+
+  variant_id String?
+  variant Variant? @relation(fields: [variant_id], references: [id])
+}
+
+enum Status {
+  RECIBIDO
+  ENTREGADO
+  PAGADO
 }
