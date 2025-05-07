@@ -13,6 +13,12 @@ export class OrderController {
     return this.orderService.create(order);
   }
 
+  @Post('/with-details')
+  @HttpCode(201)
+  createWithDetails(@Body() order: any) {
+    return this.orderService.createWithDetails(order);
+  }
+
   @Get()
   @HttpCode(200)
   findAll() {
